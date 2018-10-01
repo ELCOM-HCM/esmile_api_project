@@ -138,7 +138,7 @@ router.post('/info/:id', function (req, res) {
 	// get time device request
 	let config  = Config.findOne().exec();
     let device = Device.findByIdAndUpdate(req.params.id, {$set: {info: req.body}}).exec();
-    Promise.all()
+    Promise.all([config, device])
     .then(result=>{
          res.status(200).send({status_code: 200, message: "OK", time: result[0].request_time});
     })
